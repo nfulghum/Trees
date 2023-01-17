@@ -61,7 +61,24 @@ class Tree {
    * whose value is greater than lowerBound. */
 
   numGreater(lowerBound) {
+    if (!this.root) return 0;
 
+    let count = this.root.val > lowerBound ? 1 : 0;
+
+    function countEvensHelper(node) {
+      // go through all the children for a Node
+      for (let child of node.children) {
+        // count the child if the value is greather than lowerBound
+        if (child.val > lowerBound) count++;
+        // if it has any children
+        if (child.children.length > 0) {
+          countEvensHelper(child);
+        }
+      }
+    }
+
+    countEvensHelper(this.root);
+    return count;
   }
 }
 
